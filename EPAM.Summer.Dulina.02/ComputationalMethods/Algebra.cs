@@ -17,18 +17,18 @@ namespace ComputationalMethods
         /// <param name="accuracy">Computing accuracy</param>
         /// <returns>The number value raised to the power 1/n.</returns>   
         /// <exception cref="ArgumentException">Negative value or accuracy.</exception>
-        public static double RootOfDegreeN(double value, double n, double accuracy = 0.00001)
+        public static double RootOfDegreeN(double value, double n, double accuracy = 0.000000001)
         {
-            if (accuracy < 0)
+            if (accuracy < 0 || accuracy >= 1)
                 throw new ArgumentException("Accuracy can't be a negative value");
             if (value < 0)
                 throw new ArgumentException("Value can't be negative");
-            if (n == 0)
+            if (Math.Abs(n) <= accuracy)
                 return double.PositiveInfinity;
-            if (value == 0)
+            if (Math.Abs(value) <= accuracy)
                 return 0;
-            double currentX = 1; //initial approximation
-            double previousX = currentX;
+            double currentX = 2; //initial approximation
+            double previousX;
             do
             {
                 previousX = currentX;

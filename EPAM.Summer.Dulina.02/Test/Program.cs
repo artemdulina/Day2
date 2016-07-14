@@ -60,6 +60,12 @@ namespace Test
             Console.WriteLine(Algebra.GreatestCommonDivisionBinary(out time, testValues));
             Console.WriteLine("Time in milliseconds: {0}", time.TotalMilliseconds);
 
+
+            n = 5000;
+            value = 100;
+            Console.WriteLine(Math.Pow(value, 1 / n));
+            Console.WriteLine(Algebra.RootOfDegreeN(value, n, 0.0001));
+            // Console.WriteLine(double.PositiveInfinity/double.PositiveInfinity);
         }
     }
 }

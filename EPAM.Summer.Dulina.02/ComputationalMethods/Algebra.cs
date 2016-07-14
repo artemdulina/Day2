@@ -24,6 +24,18 @@ namespace ComputationalMethods
             return result;
         }
 
+        private static int GcdBasedOnFixedValues(GcdFixedValues function, params int[] values)
+        {
+            if (values.Length < 2)
+                throw new ArgumentException("Number of parameters must be greater than 2");
+            int gcd = values[0];
+            for (int i = 1; i < values.Length; i++)
+            {
+                gcd = function(values[i], gcd);
+            }
+            return gcd;
+        }
+
         /// <summary>
         /// Returns root of degree n from a value. Algorithm is based on Newton method. 
         /// </summary>
@@ -92,14 +104,7 @@ namespace ComputationalMethods
         /// <exception cref="ArgumentException">Number of values less than 2</exception>
         public static int GreatestCommonDivision(params int[] values)
         {
-            if (values.Length < 2)
-                throw new ArgumentException("Number of parameters must be greater than 2");
-            int gcd = values[0];
-            for (int i = 1; i < values.Length; i++)
-            {
-                gcd = GreatestCommonDivision(values[i], gcd);
-            }
-            return gcd;
+            return GcdBasedOnFixedValues(GreatestCommonDivision, values);
         }
 
         /// <summary>
@@ -165,14 +170,7 @@ namespace ComputationalMethods
         /// <exception cref="ArgumentException">Number of values less than 2</exception>
         public static int GreatestCommonDivisionBinary(params int[] values)
         {
-            if (values.Length < 2)
-                throw new ArgumentException("Number of parameters must be greater than 2");
-            int gcd = values[0];
-            for (int i = 1; i < values.Length; i++)
-            {
-                gcd = GreatestCommonDivisionBinary(values[i], gcd);
-            }
-            return gcd;
+            return GcdBasedOnFixedValues(GreatestCommonDivisionBinary, values);
         }
 
         /// <summary>

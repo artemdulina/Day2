@@ -1,14 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace ComputationalMethods
 {
     public static class Algebra
     {
+        private delegate int GcdFixedValues(int a, int b);
+
+        private delegate int GcdValues(int[] values);
+
+        private static int ElapsedTime(out TimeSpan time, GcdFixedValues function, int a, int b)
+        {
+            return ElapsedTime(out time, array => function(array[0], array[1]), new[] { a, b });
+        }
+
+        private static int ElapsedTime(out TimeSpan time, GcdValues function, int[] values)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            int result = function(values);
+            timer.Stop();
+            time = timer.Elapsed;
+            return result;
+        }
+
         /// <summary>
         /// Returns root of degree n from a value. Algorithm is based on Newton method. 
         /// </summary>
@@ -67,12 +82,7 @@ namespace ComputationalMethods
         /// <exception cref="ArgumentException">Both zero values</exception>
         public static int GreatestCommonDivision(int a, int b, out TimeSpan time)
         {
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            int result = GreatestCommonDivision(a, b);
-            timer.Stop();
-            time = timer.Elapsed;
-            return result;
+            return ElapsedTime(out time, GreatestCommonDivision, a, b);
         }
 
         /// <summary>
@@ -100,12 +110,7 @@ namespace ComputationalMethods
         /// <exception cref="ArgumentException">Number of values less than 2</exception>
         public static int GreatestCommonDivision(out TimeSpan time, params int[] values)
         {
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            int result = GreatestCommonDivision(values);
-            timer.Stop();
-            time = timer.Elapsed;
-            return result;
+            return ElapsedTime(out time, GreatestCommonDivision, values);
         }
 
         /// <summary>
@@ -150,12 +155,7 @@ namespace ComputationalMethods
         /// <exception cref="ArgumentException">Both zero values</exception>
         public static int GreatestCommonDivisionBinary(int a, int b, out TimeSpan time)
         {
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            int result = GreatestCommonDivisionBinary(a, b);
-            timer.Stop();
-            time = timer.Elapsed;
-            return result;
+            return ElapsedTime(out time, GreatestCommonDivisionBinary, a, b);
         }
 
         /// <summary>
@@ -183,12 +183,7 @@ namespace ComputationalMethods
         /// <exception cref="ArgumentException">Number of values less than 2</exception>
         public static int GreatestCommonDivisionBinary(out TimeSpan time, params int[] values)
         {
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            int result = GreatestCommonDivisionBinary(values);
-            timer.Stop();
-            time = timer.Elapsed;
-            return result;
+            return ElapsedTime(out time, GreatestCommonDivisionBinary, values);
         }
 
     }
